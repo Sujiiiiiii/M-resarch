@@ -2,12 +2,13 @@ import datetime
 import os
 
 import drjit as dr
+import matplotlib.pyplot as plt
 import mitsuba as mi
 
 from scripts.args import results_path
 
 
-def save_image(image, filename, path=results_path, log=True):
+def save_image(image, filename, path=results_path, log=True, show=False):
     bitmap = mi.Bitmap(image)
     bitmap = bitmap.convert(
         pixel_format=mi.Bitmap.PixelFormat.RGB,
@@ -20,6 +21,10 @@ def save_image(image, filename, path=results_path, log=True):
 
     if log:
         print(f"{filename} saved to {images_path}")
+    if show:
+        plt.imshow(image)
+        plt.axis("off")
+        plt.show()
 
 
 def mse(image, image_ref):
