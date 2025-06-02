@@ -1,0 +1,14 @@
+[project]
+name = "m-resarch"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "black>=25.1.0",
+    "isort>=6.0.1",
+    "matplotlib>=3.10.3",
+    "mitsuba>=3.6.4",
+    "mypy>=1.16.0",
+    "numpy>=2.2.6",
+]
