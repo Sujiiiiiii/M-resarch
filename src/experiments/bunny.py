@@ -13,7 +13,7 @@ scene = mi.load_dict(
         "sensor": {
             "type": "perspective",
             "fov": 45,
-            "to_world": T.look_at(
+            "to_world": T().look_at(
                 origin=[0, 0, 0.5],
                 target=[0, 0, 0],
                 up=[0, 1, 0],
@@ -29,7 +29,7 @@ scene = mi.load_dict(
             "type": "ply",
             "filename": "assets/models/bunny_binary.ply",
             "flip_normals": True,
-            "to_world": T.translate([0, -0.1, 0]),
+            "to_world": T().translate([0, -0.1, 0]),
             "bsdf": {
                 "type": "plastic",
                 "diffuse_reflectance": {
