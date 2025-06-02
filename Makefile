@@ -1,20 +1,20 @@
 _isort_check:
-	isort .
+	uv run isort .
 
 _black_check:
-	black --check .
+	uv run black --check .
 
 _mypy:
-	mypy .
+	uv run mypy .
 
 lint:
 	make -j _isort_check _black_check _mypy
 
 _isort_apply:
-	isort .
+	uv run isort .
 
 _black_apply:
-	black .
+	uv run black .
 
 fmt:
 	make _isort_apply _black_apply
