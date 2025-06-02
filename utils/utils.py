@@ -1,8 +1,11 @@
-import mitsuba as mi
-import os
-import drjit as dr
 import datetime
+import os
+
+import drjit as dr
+import mitsuba as mi
+
 from scripts.args import results_path
+
 
 def save_image(image, filename, path=results_path, log=True):
     bitmap = mi.Bitmap(image)
@@ -18,5 +21,6 @@ def save_image(image, filename, path=results_path, log=True):
     if log:
         print(f"{filename} saved to {images_path}")
 
+
 def mse(image, image_ref):
-    return dr.mean(dr.sqr(image-image_ref))
+    return dr.mean(dr.sqr(image - image_ref))
