@@ -1,5 +1,5 @@
 _isort_check:
-	uv run isort .
+	uv run isort --check .
 
 _black_check:
 	uv run black --check .
