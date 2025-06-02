@@ -26,14 +26,14 @@ scene = mi.load_dict(
         },
         "bunny": {
             "type": "ply",
-            "filename": "assets/models/bunny.ply",
-            "face_normals": False,
+            "filename": "assets/models/bunny_binary.ply",
+            "flip_normals": True,
             "to_world": mi.ScalarTransform4f().translate([0, -0.1, 0]),
             "bsdf": {
                 "type": "plastic",
                 "diffuse_reflectance": {
                     "type": "rgb",
-                    "value": [1.0, 0.3, 0.3],
+                    "value": [1.0, 1.0, 1.0],
                 },
                 "specular_reflectance": {
                     "type": "rgb",
@@ -43,11 +43,11 @@ scene = mi.load_dict(
         },
         "my_sphere_light": {
             "type": "sphere",
-            "center": [0, 0.2, 0],
+            "center": [0.1, 0.2, 0],
             "radius": 0.1,
             "emitter": {
                 "type": "area",
-                "radiance": {"type": "rgb", "value": [1.0, 1.0, 1.0]},
+                "radiance": {"type": "rgb", "value": [10.0, 10.0, 10.0]},
             },
         },
     }

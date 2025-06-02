@@ -174,3 +174,4 @@ cython_debug/
 .pypirc
 
 results/
+.DS_Store
