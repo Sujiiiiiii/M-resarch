@@ -8,7 +8,7 @@ import mitsuba as mi
 from scripts.args import results_path
 
 
-def save_image(image, filename, path=results_path, log=True, show=False):
+def save_image(image, filename, path=results_path, log=False, show=False):
     bitmap = mi.Bitmap(image)
     bitmap = bitmap.convert(
         pixel_format=mi.Bitmap.PixelFormat.RGB,
