@@ -11,4 +11,5 @@ dependencies = [
     "mitsuba>=3.6.4",
     "mypy>=1.16.0",
     "numpy>=2.2.6",
+    "trimesh>=4.6.10",
 ]
