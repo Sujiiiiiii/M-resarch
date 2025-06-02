@@ -35,10 +35,7 @@ scene = mi.load_dict(
                     "type": "rgb",
                     "value": [1.0, 1.0, 1.0],
                 },
-                "specular_reflectance": {
-                    "type": "rgb",
-                    "value": [1, 1, 1]
-                }
+                "specular_reflectance": {"type": "rgb", "value": [1, 1, 1]},
             },
         },
         "my_sphere_light": {
