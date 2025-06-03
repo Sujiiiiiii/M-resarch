@@ -1,10 +1,10 @@
 import mitsuba as mi
+
+mi.set_variant("llvm_ad_rgb")
+
 from mitsuba import ScalarTransform4f as T
 
 from utils.utils import save_image
-
-# print(f"variants: {mi.variants()}")
-mi.set_variant("llvm_ad_rgb")
 
 scene = mi.load_dict(
     {
@@ -27,7 +27,7 @@ scene = mi.load_dict(
         },
         "bunny": {
             "type": "ply",
-            "filename": "assets/models/bunny_binary.ply",
+            "filename": "assets/models/bunny/bunny_binary.ply",
             "flip_normals": True,
             "to_world": T().translate([0, -0.1, 0]),
             "bsdf": {
@@ -45,7 +45,7 @@ scene = mi.load_dict(
             "radius": 0.1,
             "emitter": {
                 "type": "area",
-                "radiance": {"type": "rgb", "value": [10.0, 10.0, 10.0]},
+                "radiance": {"type": "rgb", "value": [5.0, 5.0, 5.0]},
             },
         },
     }
