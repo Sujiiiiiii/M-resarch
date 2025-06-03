@@ -1,12 +1,12 @@
+import drjit as dr
 import mitsuba as mi
 from tqdm import tqdm
-import drjit as dr
 
 mi.set_variant("llvm_ad_rgb")
 
 from mitsuba import ScalarTransform4f as T
 
-from utils.utils import save_image, mse
+from utils.utils import mse, save_image
 
 scene = mi.load_dict(
     {
@@ -105,14 +105,14 @@ save_image(image_target, "target.png")
 
 params = mi.traverse(scene)
 # print(params)
-key = 'bunny.vertex_positions'
+key = "bunny.vertex_positions"
 
 opt = mi.ad.Adam(lr=1e-4)
 opt[key] = params[key]
 params.update(opt)
 
-iter=500
-save_each_iter=10
+iter = 500
+save_each_iter = 10
 
 with tqdm(range(iter), desc="Optimization Progress") as pbar:
     for i in pbar:
@@ -128,4 +128,3 @@ with tqdm(range(iter), desc="Optimization Progress") as pbar:
 save_image(image, "final_output.png", log=True)
 
 print("Optimization complete.")
-
