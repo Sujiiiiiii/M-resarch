@@ -8,19 +8,38 @@ from mitsuba import ScalarTransform4f as T
 
 from utils.utils import mse, save_image
 
+# Cam parameters
 cam_to_world = T().look_at(
-    origin=[0, 0, 5],
+    origin=[4, 0, 0],
     target=[0, 0, 0],
     up=[0, 1, 0],
 )
+cam_fov = 45
 cam_res = 512
 
+# Bunny parameters
 bunny_to_world = T().translate([0, -0.1, 0])
 
-cube_to_world = T().translate([0, 0, 0])
+# Cube parameters
+cube_in_scale = 0.3
+cube_in_to_world = T().translate([0, 0, 0]).scale(cube_in_scale)
+cube_ex_to_world = T().translate([0, 0, 0])
+cube_alpha = 0.0
 
+# Light parameters
 light_pos = [0, 0, 0]
-light_r = 0.25
+light_r = 0.1
+light_value = 5.0
+
+# Glass parameters
+glass_ior = 1.5
+glass_albedo = 0.0
+glass_sigma_t = 5.0
+
+# Air parameters
+air_ior = 1.0
+air_albedo = 0.0
+air_sigma_t = 0.0
 
 scene = mi.load_dict(
     {
@@ -28,7 +47,7 @@ scene = mi.load_dict(
         "integrator": {"type": "path"},
         "sensor": {
             "type": "perspective",
-            "fov": 45,
+            "fov": cam_fov,
             "to_world": cam_to_world,
             "film": {
                 "type": "hdrfilm",
@@ -37,26 +56,52 @@ scene = mi.load_dict(
                 "rfilter": {"type": "box"},
             },
         },
-        "cube": {
+        "cube_in": {
             "type": "cube",
-            "to_world": cube_to_world,
+            "to_world": cube_in_to_world,
             "flip_normals": True,
             "bsdf": {
-                "type": "diffuse",
-                "reflectance": {"type": "rgb", "value": [1.0, 1.0, 1.0]},
+                "type": "roughdielectric",
+                "int_ior": air_ior,
+                "ext_ior": glass_ior,
+                "alpha": cube_alpha,
             },
+            "interior": {
+                "type": "homogeneous",
+                "albedo": air_albedo,
+                "sigma_t": air_sigma_t,
+            }
         },
-        "my_sphere_light": {
+        "cube_ex": {
+            "type": "cube",
+            "to_world": cube_ex_to_world,
+            "bsdf": {
+                "type": "roughdielectric",
+                "int_ior": glass_ior,
+                "ext_ior": air_ior,
+                "alpha": cube_alpha,
+            },
+            "interior": {
+                "type": "homogeneous",
+                "albedo": glass_albedo,
+                "sigma_t": glass_sigma_t,
+            }
+        },
+        "sphere_light": {
             "type": "sphere",
             "center": light_pos,
             "radius": light_r,
             "emitter": {
                 "type": "area",
-                "radiance": {"type": "rgb", "value": [5.0, 5.0, 5.0]},
+                "radiance": {"type": "rgb", "value": [light_value, light_value, light_value]},
             },
         },
     }
 )
 
-image = mi.render(scene)
-save_image(image, "initial.png", show = True)
+image = mi.render(scene, spp=64)
+
+max_val = dr.max(image)
+print("Max pixel value:", max_val)
+
+save_image(image, "image.png", show = True)
