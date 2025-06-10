@@ -9,6 +9,7 @@ from scripts.args import results_path
 
 
 def save_image(image, filename, path=results_path, log=False, show=False):
+    image = image**(1.0 / 2.2)
     bitmap = mi.Bitmap(image)
     bitmap = bitmap.convert(
         pixel_format=mi.Bitmap.PixelFormat.RGB,
@@ -22,7 +23,7 @@ def save_image(image, filename, path=results_path, log=False, show=False):
     if log:
         print(f"{filename} saved to {images_path}")
     if show:
-        plt.imshow(image ** (1.0 / 2.2))
+        plt.imshow(image)
         plt.axis("off")
         plt.show()
 
