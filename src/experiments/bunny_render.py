@@ -9,7 +9,7 @@ from mitsuba import ScalarTransform4f as T
 from utils.utils import mse, save_image
 
 # Cam parameters
-origin = [5, 5, 5]
+origin = [4, 4, 4]
 target = [0, 0, 0]
 up = [0, 1, 0]
 cam_to_world = T().look_at(
@@ -21,7 +21,7 @@ cam_fov = 45
 cam_res = 512
 
 # Cube parameters
-cube_in_scale = 0.5
+cube_in_scale = 0.9
 cube_in_to_world = T().translate([0, 0, 0]).scale(cube_in_scale)
 cube_ex_to_world = T().translate([0, 0, 0])
 cube_alpha = 0.2
@@ -34,7 +34,7 @@ light_value = 10.0
 # Glass parameters
 glass_ior = 1.5
 glass_albedo = 0.0
-glass_sigma_t = 0.0
+glass_sigma_t = 5.0
 
 # Air parameters
 air_ior = 1.0
@@ -45,7 +45,7 @@ scene = mi.load_dict(
     {
         "type": "scene",
         "integrator": {
-            "type": "path",
+            "type": "volpath",
             "max_depth": 8,
         },
         "sensor": {
@@ -96,7 +96,7 @@ scene = mi.load_dict(
     }
 )
 
-image = mi.render(scene)
+image = mi.render(scene, spp=64)
 
 max_val = dr.max(image)
 print("Max pixel value:", max_val)
