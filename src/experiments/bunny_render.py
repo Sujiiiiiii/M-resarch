@@ -101,4 +101,4 @@ image = mi.render(scene, spp=64)
 max_val = dr.max(image)
 print("Max pixel value:", max_val)
 
-save_image(image, "image.png", show = True)
+
